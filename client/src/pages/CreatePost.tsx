@@ -128,12 +128,12 @@ const CreatePost: FC = () => {
         </div>
 
         <div className="mt-10">
-          <p className="mt-2 text-[#666e75] text-[14px]">** Once you have created the image you want, you can share it with others in the community **</p>
+          <p className="mt-2 text-[#666e75] text-[12px] md:text-[14px]">** Once you have created the image you want, you can share it with others in the community **</p>
           <button
             type="submit"
             className={`mt-3 text-white ${
               loading ? 'bg-gray-400' : 'bg-[#6469ff]'
-            } font-medium rounded-md text-sm w-2/5 px-5 py-2.5 text-center disabled:opacity-50 disabled:cursor-not-allowed`}
+            } font-medium rounded-md text-sm w-[250px] md:w-2/5 px-5 py-2.5 text-center disabled:opacity-50 disabled:cursor-not-allowed mb-2`}
             disabled={!isFormValid || loading}
           >
             {loading ? 'Sharing...' : 'Share with the Community'}
