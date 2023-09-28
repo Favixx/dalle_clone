@@ -1,4 +1,4 @@
-import {FC, useState, ChangeEvent} from 'react'
+import {FC, useState, useEffect, ChangeEvent} from 'react'
 import {FormField, Loader} from '../components'
 import { getRandomPrompt } from '../utils';
 import { preview } from '../assets';
@@ -18,6 +18,14 @@ const CreatePost: FC = () => {
 
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    setIsFormValid(form.name.trim() !== '' && form.prompt.trim() !== '');
+  }, [form]);
+
+
+  
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -108,11 +116,14 @@ const CreatePost: FC = () => {
 
         <div className="mt-5 flex gap-5">
           <button
-            type="button"
-            onClick={generateImage}
-            className=" text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-          >
-            {generatingImg ? 'Generating...' : 'Generate'}
+              type="button"
+              onClick={generateImage}
+              className={`text-white ${
+                generatingImg ? 'bg-gray-400' : 'bg-green-700'
+              } font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center disabled:opacity-50 disabled:cursor-not-allowed`}
+              disabled={!isFormValid || generatingImg}
+            >
+              {generatingImg ? 'Generating...' : 'Generate'}
           </button>
         </div>
 
@@ -120,7 +131,10 @@ const CreatePost: FC = () => {
           <p className="mt-2 text-[#666e75] text-[14px]">** Once you have created the image you want, you can share it with others in the community **</p>
           <button
             type="submit"
-            className="mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            className={`mt-3 text-white ${
+              loading ? 'bg-gray-400' : 'bg-[#6469ff]'
+            } font-medium rounded-md text-sm w-2/5 px-5 py-2.5 text-center disabled:opacity-50 disabled:cursor-not-allowed`}
+            disabled={!isFormValid || loading}
           >
             {loading ? 'Sharing...' : 'Share with the Community'}
           </button>
