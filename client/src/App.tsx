@@ -1,5 +1,5 @@
 import {FC} from 'react'
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 // import { logo } from './assets/logo.svg';
 import { Home, CreatePost } from './pages';
