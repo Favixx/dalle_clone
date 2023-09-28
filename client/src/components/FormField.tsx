@@ -22,7 +22,7 @@ const FormField: FC<IFormField> = ({
     handleSurpriseMe,
 }) => {
   return (
-    <div>
+    <div className='mt-5'>
         <div className='flex items-center gap-2 mb-2'>
             <label 
                 htmlFor={name}
