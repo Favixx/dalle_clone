@@ -7,7 +7,7 @@ export const fetchImage = async (text: string) => {
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
-      authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzc1MWRkYzQtOWRjYi00NmE2LWJiMDMtMWI0N2U0NDU0MWUxIiwidHlwZSI6ImFwaV90b2tlbiJ9.FnV26l2G6FiUp24iObZ6wOJr7C3qu-GUgI_D7dQrUVI`
+      authorization: `Bearer ${process.env.REACT_APP_IMAGEAPI_KEY}`
     },
     data: {
       response_as_dict: true,

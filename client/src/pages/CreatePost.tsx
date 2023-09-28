@@ -26,8 +26,9 @@ const CreatePost: FC = () => {
     setIsFormValid(form.name.trim() !== '' && form.prompt.trim() !== '');
   }, [form]);
 
+  useEffect(() => {
 
-  
+  }, [imageLink])  
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -47,12 +48,12 @@ const CreatePost: FC = () => {
         const apiResponse = await fetchImage(form.prompt);
         const imgLink = apiResponse.openai.items[0].image_resource_url
         // Оновіть setImageLink замість setForm
-        setImageLink(apiResponse);
-        console.log(imageLink)
+        setForm({...form, photo: imgLink})
+        setImageLink(imgLink);
+        console.log(imgLink)
+        setGeneratingImg(false);
       } catch (err) {
         alert(err);
-      } finally {
-        setGeneratingImg(false);
       }
     } else {
       alert('Please provide a proper prompt');
@@ -90,19 +91,13 @@ const CreatePost: FC = () => {
         />
 
         <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center mt-5">
-        {form.photo ? (
-          <img
-            src={imageLink}
-            alt={imageLink}
-            className="w-full h-full object-contain"
-          />
-        ) : (
-          <img
-            src={preview}
-            alt="preview"
-            className="w-9/12 h-9/12 object-contain opacity-40"
-          />
-        )}
+        <img
+          src={form.photo ? imageLink : preview}
+          alt={form.prompt || "preview"}
+          className={`w-full h-full object-contain ${
+            form.photo ? '' : 'opacity-40'
+          }`}
+        />
 
           {generatingImg && (
             <div className="absolute inset-0 z-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] rounded-lg">
